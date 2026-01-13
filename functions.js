@@ -1,6 +1,10 @@
 // input for searchbar to go here
-const searchoutput = document.getElementById("searchinput");
-const handleSubmit = (e) => {
-    // api stuff
-    
-};
+const searchinput = document.getElementById("searchoutput");
+const displayoutput = document.getElementById("displayoutput");
+searchinput.addEventListener("input" , (e) => {
+displayoutput.innerText = e.target.value;
+
+// api logic here
+
+});
+
