@@ -32,14 +32,20 @@ longitude : output3[0].lon
 // requires an input of coordinates so getlocationcoords(displayoutput) is required
 async function getweatherdata(lat, lon) {
 // collect data from open meteo
-    const input2 = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&weather_code&apparent_tempature&precipitation`);
+    const input2 = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&weather_code&hourly=apparent_temperature&hourly=precipitation_probability`);
 // I can add any data meteo provides by adding & tags which will make the api add that data to the json file
     const output2 = await input2.json();
 // fetch data from input.json
+
+
+// current_weather objects
     const temp = output2.current_weather.temperature;
     const wind = output2.current_weather.windspeed;
-    const feelslike = output2.current_weather.apparent_tempature[0];
-    const rain = output2.current_weather.precipitation[0];
+
+
+    // hourly objects
+    const feelslike = output2.hourly.apparent_temperature[0];
+    const rain = output2.hourly.precipitation_probability[0];
 
 /* async and await are here as the javascript will crash if it can't execute with
 with information it doesn't have */
@@ -59,7 +65,7 @@ if (e.key === "Enter") {
     // it doesn't but I will add try-catch blocks later
     if (coords) {
         const weather = await getweatherdata(coords.latitude, coords.longitude);
-        displayoutput.innerText = `Current Conditions in that City \n it is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} \n and with ${weather.rain} conditions`;
+        displayoutput.innerText = `Current Conditions in that City \n it is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} degrees celcius \n and with a ${weather.rain}% chance of rain`;
     } else {
         displayoutput.innerText = "Location not found...";
     }
