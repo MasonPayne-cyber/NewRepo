@@ -36,7 +36,7 @@ async function getweatherdata(lat, lon) {
 
     const output2 = await input2.json();
 // fetch data from input.json
-    const temp = output2.current_weather.temperture;
+    const temp = output2.current_weather.temperature;
     const wind = output2.current_weather.windspeed;
 
 /* async and await are here as the javascript will crash if it can't execute with
