@@ -36,12 +36,12 @@ async function getweatherdata(lat, lon) {
 
     const output2 = await input2.json();
 // fetch data from input.json
-    const temp = output2.current_weather.tempature;
+    const temp = output2.current_weather.temperture;
     const wind = output2.current_weather.windspeed;
 
 /* async and await are here as the javascript will crash if it can't execute with
 with information it doesn't have */
-
+return {temp, wind};
 
 }
 
@@ -49,7 +49,7 @@ with information it doesn't have */
 searchinput.addEventListener("keydown" , async (e) => {
 if (e.key === "Enter") {
     const cityname = e.target.value;
-    displayoutpout.innerText = "Loading...";
+    displayoutput.innerText = "Loading...";
 
     const coords = await getlocationcoords(cityname)
     if (coords) {
