@@ -1,6 +1,11 @@
 // input for searchbar to go here
 const searchinput = document.getElementById("searchinput");
 const displayoutput = document.getElementById("displayoutput");
+let lat = 0;
+let lon = 0;
+// initialisation of values just in case getlocationcoords() returns nothing
+
+
 
 async function getlocationcoords(cityname) {
 
@@ -16,15 +21,13 @@ extraction in javascript
 I will add some kind of clearing/ showing multiple results, for example theres
 2+  torquays 
 */
-
-const lat = output3[0].lat;
-const lon = output3[0].lon;
+return {
+latitude : output3[0].lat,
+longitude : output3[0].lon
 // store and return the coords from the input json
-return {latitude: lat, longitude: lon};
+};
 
 }
-
-
 
 
 // requires an input of coordinates so getlocationcoords(displayoutput) is required
@@ -32,7 +35,11 @@ async function getweatherdata(lati, long) {
 // collect data from open meteo
     const input2 = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
 
-    const output2 = await input.json();
+    const output2 = await input2.json();
+// fetch data from input.json
+    const temp = data.current_weather.tempature;
+    const wind = data.current_weather.windspeed;
+
 /* async and await are here as the javascript will crash if it can't execute with
 with information it doesn't have */
 
@@ -40,7 +47,18 @@ with information it doesn't have */
 }
 
 
-searchinput.addEventListener("enter" , (e) => {
-displayoutput.innerText = e.target.value;
+searchinput.addEventListener("keydown" , async (e) => {
+if (e.key = "Enter") {
+    const cityname = e.target.value;
+    displayoutpout.innerText = "Loading...";
+
+    const coords = await getlocationcoords(cityname)
+    if (coords) {
+        const weather = await getweatherdata(coords.latitude, coords.longitude);
+        displayoutput.innerText = `output text here \n it is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h.`;
+    } else {
+        displayoutput.innerText = "Location not found...";
+    }
+}
 });
 
