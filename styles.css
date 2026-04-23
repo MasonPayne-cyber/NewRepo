@@ -16,3 +16,12 @@ body {
     color: #333;
     /* basic CSS styling for main body */
 }
+
+/* basic header styling */
+
+h1 { 
+    color: #ffffff;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
