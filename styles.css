@@ -1,4 +1,6 @@
-
+/* i used this as a coding reference, because the CSS formatting is much easier to understand and apply, despite it being an ai business access framework? 
+https://docs.openiam.com/docs-4.2.1.13/developerguide/1-custom-css/2-cssexamples
+*/
 
 /* import font Poppins from google */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -8,7 +10,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
     min-height: 100vh;
-    margin: 0;
+    margin: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,10 +20,26 @@ body {
 }
 
 /* basic header styling */
-
 h1 { 
     color: #ffffff;
     font-size: 3rem;
     margin-bottom: 20px;
     letter-spacing: 2px;
 }
+
+/* display output styling */
+#displayoutput { 
+   /* making the box in the middle */
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    
+    text-align: center;
+    font-size: 20px;
+    color: #333333;
+    }
