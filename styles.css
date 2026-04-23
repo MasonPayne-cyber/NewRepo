@@ -65,7 +65,7 @@ h1 {
     /* box gets bigger and darker when clicked? */
 }
 
-/* should hide the output box when nothing is searched */
+/*  hides output box when nothing is searched */
 #displayoutput:empty {
     display: none;
 }
