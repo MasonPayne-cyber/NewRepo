@@ -60,12 +60,15 @@ h1 {
 }
 
 #searchinput:focus {
-    width: 90%; 
+    width: 95%; 
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); 
     /* box gets bigger and darker when clicked? */
 }
 
-
+/* should hide the output box when nothing is searched */
+#displayoutput:empty {
+    display: none;
+}
 
 
 
