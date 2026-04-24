@@ -2,9 +2,21 @@
 const searchinput = document.getElementById("searchinput");
 const displayoutput = document.getElementById("displayoutput");
 
+
+if (navigator.geolocation) {
+/* built in browser function to request location data for auto input
+should include both a success and failure option */
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+ 
+}
 // initialisation of values just in case getlocationcoords() returns nothing
 
-
+async (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    
+    // passes user data from browser cookies to function
+}
 
 async function getlocationcoords(cityname) {
 
@@ -70,5 +82,7 @@ if (e.key === "Enter") {
         displayoutput.innerText = "Location not found...";
     }
 }
+
+
 });
 
