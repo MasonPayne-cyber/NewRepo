@@ -2,21 +2,28 @@
 const searchinput = document.getElementById("searchinput");
 const displayoutput = document.getElementById("displayoutput");
 
-
 if (navigator.geolocation) {
-/* built in browser function to request location data for auto input
-should include both a success and failure option */
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
- 
+    /* built in browser function to request location data for auto input
+    should include both a success and failure option */
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            
+            // Now that we have the lat/lon from the browser, we call your weather function
+            const weather = await getweatherdata(lat, lon);
+            
+            displayoutput.innerText = `Local Weather \n it is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} degrees celcius \n and with a ${weather.rain}% chance of rain`;
+            
+            // passes user data from browser cookies to function
+        },
+        (error) => {
+            displayoutput.innerText = "Location access denied. Please type a city name.";
+        }
+    );
 }
-// initialisation of values just in case getlocationcoords() returns nothing
 
-async (position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    
-    // passes user data from browser cookies to function
-}
+
 
 async function getlocationcoords(cityname) {
 
