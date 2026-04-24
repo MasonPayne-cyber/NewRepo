@@ -18,7 +18,7 @@ if (navigator.geolocation) {
             // passes user data from browser cookies to function
         },
         (error) => {
-            displayoutput.innerText = "Location access denied. Please type a city name.";
+            displayoutput.innerText = "Location access refused. Please type a city name.";
         }
     );
 }
