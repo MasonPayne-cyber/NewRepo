@@ -26,7 +26,8 @@ Getting Started:
 
    1. Clone the repository
    2. open the project in any modern web browser
-   3. when prompted, click "Allow" to test automatic geolocation feature, if declined then type a city name and press enter
+   3. when prompted, click "Allow" to test automatic geolocation feature, if declined then JSON input will beb read
+   
    
 
 Lisence and Acknowledgements
