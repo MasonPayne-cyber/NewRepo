@@ -2,23 +2,61 @@
 const searchinput = document.getElementById("searchinput");
 const displayoutput = document.getElementById("displayoutput");
 
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+    const weatherData = {
+        city: searchinput.value || "Local/Default City", 
+        date: new Date().toLocaleDateString(),
+        info: displayoutput.innerText // Grabs what's on screen
+    };
+    
+    const blob = new Blob([JSON.stringify(weatherData, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'weather_report.json';
+    link.click();
+    
+   
+    URL.revokeObjectURL(url); 
+});
+
+/* requirement 3: JSON input from a flat file */
+fetch('./data.json')
+  .then(response => response.json())
+  .then(data => {
+      console.log("Loaded default city from flat file:", data.defaultCity);
+      /* auto loads until geolocation is accepted */
+  });
+
 if (navigator.geolocation) {
-    /* built in browser function to request location data for auto input
-    should include both a success and failure option */
+    /* Built-in browser function to request location data */
     navigator.geolocation.getCurrentPosition(
         async (position) => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             
-            // Now that we have the lat/lon from the browser, we call your weather function
             const weather = await getweatherdata(lat, lon);
-            
-            displayoutput.innerText = `Local Weather \n it is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} degrees celcius \n and with a ${weather.rain}% chance of rain`;
-            
-            // passes user data from browser cookies to function
+            displayoutput.innerText = `Local Weather \n It is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} degrees celcius \n and with a ${weather.rain}% chance of rain.`;
         },
-        (error) => {
-            displayoutput.innerText = "Location access refused. Please type a city name.";
+        async (error) => {
+            // FIX 2: Fetch and load default city data from JSON when location is denied
+            displayoutput.innerText = "Location access refused. Loading default city...";
+            try {
+                const response = await fetch('./data.json');
+                const data = await response.json();
+                const defaultCity = data.defaultCity;
+                
+                // Now run the default city through your existing functions
+                const coords = await getlocationcoords(defaultCity);
+                if (coords) {
+                    const weather = await getweatherdata(coords.latitude, coords.longitude);
+                    displayoutput.innerText = `Default City (${defaultCity}) \n It is ${weather.temp} Celcius \n with winds reaching ${weather.wind}km/h. \n It will feel like ${weather.feelslike} degrees celcius \n and with a ${weather.rain}% chance of rain.`;
+                }
+            } catch (err) {
+                displayoutput.innerText = "Location access refused. Please type a city name.";
+                console.error("Could not load default city from JSON:", err);
+            }
         }
     );
 }
