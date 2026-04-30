@@ -33,3 +33,5 @@ Getting Started:
 Lisence and Acknowledgements
  - Legal: This project complies with the Copyright, Designs and Patents Act 1988 by using open-source APIs and public-domain data
  - Credits: Weather data provided by Open-Meteo under the Creative Commons Attributions 4.0 International Lisense 
+
+Live Site for testing:    https://masonpayne-cyber.github.io/weatherdash/
