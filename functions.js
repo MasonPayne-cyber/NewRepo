@@ -77,14 +77,15 @@ extraction in javascript
 I will add some kind of clearing/ showing multiple results, for example theres
 2+  torquays 
 */
-return {
-latitude : output3[0].lat,
-longitude : output3[0].lon
-// store and return the coords from the input json
-};
-
+// Check if the API actually found the city
+    if (output3 && output3.length > 0) {
+        return {
+            latitude : output3[0].lat,
+            longitude : output3[0].lon
+        };
+    }
+    return null; // Return null instead of crashing
 }
-
 
 // requires an input of coordinates so getlocationcoords(displayoutput) is required
 async function getweatherdata(lat, lon) {
